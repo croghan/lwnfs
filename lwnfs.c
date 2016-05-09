@@ -38,7 +38,7 @@ static struct inode *lfs_make_inode(struct super_block *sb, int mode)
 
 	if (ret) {
 		ret->i_mode = mode;
-		ret->i_uid = ret->i_gid = 0;
+		ret->i_uid.val = ret->i_gid.val = 0;
 		ret->i_blocks = 0;
 		ret->i_atime = ret->i_mtime = ret->i_ctime = CURRENT_TIME;
 	}
@@ -278,7 +278,7 @@ static int lfs_fill_super (struct super_block *sb, void *data, int silent)
 /*
  * Get a dentry to represent the directory in core.
  */
-	root_dentry = d_alloc_root(root);
+	root_dentry = d_make_root(root);
 	if (! root_dentry)
 		goto out_iput;
 	sb->s_root = root_dentry;
